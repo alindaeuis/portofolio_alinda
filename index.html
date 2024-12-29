@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+  <!-- fast bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.2.0/dist/css/fastbootstrap.min.css" rel="stylesheet" integrity="sha256-V6lu+OdYNKTKTsVFBuQsyIlDiRWiOmtC8VQ8Lzdm2i4=" crossorigin="anonymous">
+
+  <!-- font awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- css -->
+   <link rel="stylesheet" href="style.css">
+
+   <!-- logo -->
+    <link rel="icon" href="assets/img/logo.png">
+  <title>Personal Website</title>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center sticky">
+    <div class="container d-flex justify-content-between align-items-center">
+      <a class="navbar-brand d-flex align-items-center" href="#">
+        <img src="assets/img/logo.png" width="70"
+         alt="Logo" 
+         class="d-inline-block align-text-top" /> 
+         <span class="">A L I N D A</span>
+      </a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUnderlineExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarUnderlineExample">
+        <ul class="navbar-nav navbar-nav-underline">
+          <li class="nav-item">
+            <a class="nav-link" href="#home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#about">About</a>
+          </li>
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Projects</a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li> -->
+          <li class="nav-item">
+            <a class="nav-link" href="#project">Projects</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#certificate">Certificate</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- jumbotron -->
+   <div class="jumbotron mb-5 mt-4" id="home">
+   <div class="container d-flex justify-content-around align-items-center flex-wrap max-w-5xl mx-auto sm:text-center;" style="overflow:hidden;">
+    <div class="right-content">
+      <img src="assets/img/profile.png" alt="profile" width="500">
+    </div>
+    <div class="left-content d-flex flex-column flex-wrap">
+      <h5>Hi, I am</h5>
+      <h1 style="color:#1188E7;">Alinda Euis Soleha</h1>
+      <h3 class="role-1">Student And, </h3>
+      <h3 class="role-2" style="font-size: 2rem; font-weight: 700;">Web Developer</h3>
+      <p>Hello, I am a student with an interest in web development.</p>
+      <div class="button">
+        <a href="https://wa.me/qr/OFFFFRQ3CI6YL1"><button  class="btn btn-primary">Contact Me</button></a>
+        <a href="assets/pdf/cv.pdf" download><button  class="btn btn-warning text-white" id="downloadCvBtn">Download CV</button></a>
+      </div>
+      <div class="social-media">
+        <ul class="d-flex justify-content-start gap-3" style="font-size:2rem; list-style: none;">
+          <li><a href="https://www.instagram.com/alindaacy_/?hl=id"><i class="fa-brands fa-instagram"></i></a></li>
+          <li><a href="www.linkedin.com/in/alindaeuis"><i class="fa-brands fa-linkedin"></a></i></li>
+          <li><a href="https://x.com/xalindwch"><i class="fa-brands fa-twitter"></i></a></li>
+        </ul>
+      </div>
+    </div>
+  
+
+   
+  </div>
+</div>
+
+<!-- about  -->
+ <div class="about" id="about">
+   <div class="container text-center max-w-5xl">
+     <!-- <div class="img-section">
+       <img src="assets/img/profile.png" width="500" alt="">
+      </div> -->
+    <div class="about-section mb-5 " style="margin-bottom: 8rem;">
+    <h1 class="">About Me</h1>
+    <p class="">Hello, I am Alinda Euis Soleha. I am currently a student at SMK Wikrama Bogor. Majoring in Software and Game Development</p>
+    <p>I am a disciplined, hardworking, and responsible student. In addition, I also have good teamwork skills. I have a high passion for learning in the field of web development. Currently, I have learned several programming languages that I have implemented in several website projects. Below are the programming languages that I have learned:</p>
+  </div>
+  <div class="skill mt-4 mb-20">
+    <ul class="d-flex justify-content-center flex-wrap align-items-center gap-5" style="list-style: none;">
+      <li><img src="assets/img/html.png" alt="html" width="80"></li>
+      <li><img src="assets/img/css.png" alt="css" width="100"></li>
+      <li><img src="assets/img/js.png" alt="javascript" width="130"></li>
+      <li><img src="assets/img/php.png" alt="php" width="150"></li>
+      <li><img src="assets/img/laravel.png" alt="laravel" width="80"></li>
+      <li><img src="assets/img/bootstrap.png" alt="bootstrap" width="80"></li>
+      <li><img src="assets/img/tailwind.png" alt="tailwind" width="80"></li>
+  </div>
+</div>
+ </div>
+
+ <div class="project max-w-5xl mx-auto mt-20" id="project">
+  <div class="header-project text-center">
+    <h1>My Projects</h1>
+    <p>a collection of projects that I have made</p>
+  </div>
+
+  <div class="container mb-20">
+    <div class="row g-4 mx-auto">
+      <!-- Card 1 -->
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/ats.png" class="card-img-top" alt="Mid-semester exam project">
+          <div class="card-body">
+            <h4>Mid-semester exam project</h4>
+            <p class="card-text">
+              Create a program to check competent-incompetent scores.
+            </p>
+            <div>
+              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/projectAts/index.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/dasis.png" class="card-img-top" alt="Student Data">
+          <div class="card-body">
+            <h4>Student Data</h4>
+            <p class="card-text">
+              Create a student data program that can add, delete data, and print data entered by the user.
+            </p>
+            <div>
+              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/dataSiswa/latihan1.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/kasir.png" class="card-img-top" alt="Simple Cashier">
+          <div class="card-body">
+            <h4>Simple Cashier</h4>
+            <p class="card-text">
+              Create a simple cashier program using PHP that can add, delete, and print.
+            </p>
+            <div>
+              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/kasir1/index.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/rentalMotor.png" class="card-img-top" alt="Motorcycle Rental Program" />
+        <div class="card-body">
+          <h4>Motorcycle Rental Program</h4>
+          <p class="card-text">
+            create a website for motorbike rental using OOP PHP.
+          </p>
+          <div>
+            <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/rental/index.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/shell.png" class="card-img-top" alt="Shell" />
+          <div class="card-body">
+            <h4>Shell</h4>
+            <p class="card-text">
+              create a website to refuel using OOP PHP.
+            </p>
+            <div>
+              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/bahanBakar/index.php?i=1" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+            </div>
+      </div>
+    </div>
+  </div>
+</div>
+ </div>
+ </div>
+
+ <div class="certificate max-w-5xl mx-auto mt-20" id="certificate">
+  <div class="header-certificate text-center mb-10 max-w-lg mx-auto">
+    <h1 class="mb-5">My Certificates</h1>
+    <p>Some of the certificates I've gotten from attending free bootcamp classes held by dicoding.com and unity essentials</p>
+  </div>
+
+  <div class="certificate-body">
+    <div class="container">
+    <div class="row g-4">
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/certificate1.png" class="card-img-top" alt="Mid-semester exam project">
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/certificate2.png" class="card-img-top" alt="Mid-semester exam project">
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/certificate3.png" class="card-img-top" alt="Mid-semester exam project">
+        </div>
+      </div>
+
+      <div class="col-lg-4 col-md-6 col-sm-12">
+        <div class="card h-100">
+          <img src="assets/img/certificate4.png" class="card-img-top" alt="Mid-semester exam project">
+        </div>
+      </div>
+
+    </div>
+    </div>
+  </div>
+ </div>
+
+ <div class="contact mt-20">
+  <div class="row max-w-5xl mx-auto mb-20">
+  <div class="contact-header mb-10 col-md-5">
+    <h1>Lets Work Together!</h1>
+    <p>If you are interested in creating a landing page website or a website system, you can send a message to me! via the form beside</p>
+  </div>
+
+  <div class="col-md-7">
+    <form class="max-w-full" method="POST" action="https://api.web3forms.com/submit">
+      <input type="hidden" name="access_key" value="f359bce3-7245-43bc-b53c-e2d864b706c8">
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="name" class="form-control" name="name" id="name" aria-describedby="emailHelp" />
+      </div>
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" name="email" id="email" />
+      </div>
+      <div class="mb-3">
+        <label for="message" class="form-label">Message</label>
+        <textarea class="form-control" name="message" aria-label="With textarea"></textarea>
+      </div>
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary">Send Message</button>
+      </div>
+    </form>
+  </div>
+</div>
+ </div>
+
+ <footer>
+  <div class="mt-20 d-flex justify-content-between pt-5" style="background-color: #1188E7;">
+    <div class="d-flex align-items-center">
+      <img src="assets/img/logo.png" alt="logo" width="100">
+      <h6>A L I N D A</h6>
+    </div>
+    <div class="text-center d-flex flex-column align-items-center justify-content-center">
+      <ul class="list-navbar d-flex gap-5" style="list-style:none; color: #ffff;">
+        <li class="nav-item">
+          <a class="nav-link" href="#home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#project">Projects</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#certificate">Certificate</a>
+        </li>
+      </ul>
+      <ul class="media-social d-flex align-items-center gap-5" style="font-size:2rem; list-style: none;">
+        <li><a href="https://www.instagram.com/alindaacy_/?hl=id" style="color:#fff"><i class="fa-brands fa-instagram"></i></a></li>
+          <li><a href="www.linkedin.com/in/alindaeuis" style="color:#fff"><i class="fa-brands fa-linkedin"></a></i></li>
+          <li><a href="https://x.com/xalindwch" style="color:#fff"><i class="fa-brands fa-twitter"></i></a></li>
+      </ul>
+    </div>
+    <div class="d-flex align-items-center p-4">
+      <a href="#home"><button class="btn btn-primary">Back To Top</button></a>
+    </div>
+  </div>
+ </footer>
+
+ <script src="script.js"></script>
+
+ <!-- fast bootstrap -->
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
