@@ -25,6 +25,13 @@
   <title>Personal Website</title>
   
   <style>
+    nav.navbar {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  background-color: white !important;
+}
+
     #loading-screen {
       position: fixed;
       top: 0;
@@ -71,7 +78,7 @@
   </div>
   
   <!-- navbar -->
-  <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center sticky">
+  <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center sticky-top">
     <div class="container d-flex justify-content-between align-items-center">
       <a class="navbar-brand d-flex align-items-center" href="#">
         <img src="assets/img/logo.png" width="70"
@@ -113,10 +120,10 @@
   </nav>
 
   <!-- jumbotron -->
-   <div class="jumbotron mb-5 mt-4" id="home">
-   <div class="container d-flex justify-content-around align-items-center flex-wrap max-w-5xl mx-auto sm:text-center;" style="overflow:hidden;">
+   <div class="jumbotron mb-20 mt-10" id="home">
+   <div class="container d-flex flex-row justify-content-around align-items-center flex-wrap max-w-5xl mx-auto sm:text-start" style="overflow:hidden;">
     <div class="right-content">
-      <img src="assets/img/profile.png" alt="profile" width="500">
+      <img src="assets/img/profile.png" class="img-fluid" style="max-width: 400px;">
     </div>
     <div class="left-content d-flex flex-column flex-wrap">
       <h5>Hi, I am</h5>
@@ -126,7 +133,7 @@
       <p>Hello, I am a student with an interest in Web and Mobile development.</p>
       <div class="button">
         <a href="https://wa.me/qr/OFFFFRQ3CI6YL1"><button  class="btn btn-primary">Contact Me</button></a>
-        <a href="assets/pdf/cv.pdf" download><button  class="btn btn-warning text-white" id="downloadCvBtn">Download CV</button></a>
+        <a href="assets/pdf/cv.pdf" download><button  class="btn btn-warning text-white" id="downloadCvBtn">Download CV</button></a>  
       </div>
       <div class="social-media">
         <ul class="d-flex justify-content-start gap-3" style="font-size:2rem; list-style: none;">
@@ -143,7 +150,7 @@
 </div>
 
 <!-- about  -->
- <div class="about" id="about">
+ <div class="about mt-5" id="about">
    <div class="container text-center max-w-5xl">
      <!-- <div class="img-section">
        <img src="assets/img/profile.png" width="500" alt="">
