@@ -4,465 +4,1195 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  
-  <!-- fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- fast bootstrap -->
-  <link href="https://cdn.jsdelivr.net/npm/fastbootstrap@2.2.0/dist/css/fastbootstrap.min.css" rel="stylesheet" integrity="sha256-V6lu+OdYNKTKTsVFBuQsyIlDiRWiOmtC8VQ8Lzdm2i4=" crossorigin="anonymous">
-
-  <!-- font awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- css -->
-   <link rel="stylesheet" href="style.css">
-
-   <!-- logo -->
-    <link rel="icon" href="assets/img/logo.png">
-  <title>Personal Website</title>
-  
+  <title>Alinda Euis Soleha — Portfolio</title>
   <style>
-    nav.navbar {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 1000 !important;
-  background-color: white !important;
-}
+    :root {
+      --blue: #1188E7;
+      --blue-dark: #0A64B0;
+      --blue-light: #EAF4FF;
+      --ink: #0D1117;
+      --ink-soft: #2B3537;
+      --muted: #6B7580;
+      --surface: #F7F9FC;
+      --card-bg: #FFFFFF;
+      --border: rgba(17,136,231,0.12);
+    }
 
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #FFFFFF;
+      color: var(--ink-soft);
+      overflow-x: hidden;
+    }
+
+    /* ── LOADING ── */
     #loading-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #ffffff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      position: fixed; inset: 0;
+      background: #fff;
+      display: flex; align-items: center; justify-content: center;
       z-index: 9999;
-      transition: opacity 0.8s ease-out;
+      transition: opacity 0.8s ease;
     }
-    
-    #loading-screen.loaded {
-      opacity: 0;
-    }
-    
-    .loader {
-      width: 48px;
-      height: 48px;
-      border: 5px solid #1188E7;
-      border-bottom-color: transparent;
+    #loading-screen.loaded { opacity: 0; pointer-events: none; }
+    .loader-ring {
+      width: 48px; height: 48px;
+      border: 3px solid var(--blue-light);
+      border-top-color: var(--blue);
       border-radius: 50%;
-      display: inline-block;
-      box-sizing: border-box;
-      animation: rotation 1s linear infinite;
+      animation: spin 0.8s linear infinite;
     }
-    
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── CURSOR GLOW ── */
+    .cursor-glow {
+      pointer-events: none;
+      position: fixed;
+      width: 320px; height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(17,136,231,0.07) 0%, transparent 70%);
+      transform: translate(-50%, -50%);
+      z-index: 0;
+      transition: left 0.08s, top 0.08s;
+    }
+
+    /* ── HEADER ── */
+    header {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.88);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 1.5rem;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 0.5rem;
+      text-decoration: none;
+    }
+    .nav-logo img { width: 44px; }
+    .nav-logo span {
+      
+      font-weight: 800; font-size: 1.1rem;
+      letter-spacing: 0.18em;
+      color: var(--ink);
+    }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.88rem; font-weight: 500;
+      color: var(--muted); text-decoration: none;
+      position: relative; padding-bottom: 2px;
+      transition: color 0.2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: 0; left: 0;
+      width: 0; height: 1.5px;
+      background: var(--blue);
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover { color: var(--blue); }
+    .nav-links a:hover::after { width: 100%; }
+    .hamburger { display: none; cursor: pointer; background: none; border: none; font-size: 1.4rem; color: var(--ink); }
+    aside { display: none; }
+
+    /* ── HERO ── */
+    .hero {
+      max-width: 1100px; margin: 0 auto;
+      padding: 5rem 1.5rem 4rem;
+      display: grid;
+      grid-template-columns: 1fr 440px;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+    }
+    .hero-text { position: relative; z-index: 1; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: var(--blue-light); color: var(--blue-dark);
+      font-size: 0.78rem; font-weight: 500; letter-spacing: 0.06em;
+      padding: 0.35rem 0.9rem; border-radius: 100px;
+      border: 1px solid rgba(17,136,231,0.2);
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .hero-badge-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--blue);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.7); }
+    }
+    .hero-name {
+      
+      font-weight: 800; font-size: clamp(2.6rem, 5vw, 4rem);
+      color: var(--ink); line-height: 1.05;
+      margin-bottom: 0.6rem;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-name span { color: var(--blue); }
+    .hero-role {
+      
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 600; color: var(--muted);
+      margin-bottom: 1.2rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-desc {
+      font-size: 1rem; line-height: 1.75; color: var(--muted);
+      max-width: 480px; margin-bottom: 2rem;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 0.9rem; margin-bottom: 2.2rem;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--blue); color: #fff;
+      padding: 0.7rem 1.6rem; border-radius: 100px;
+      font-weight: 500; font-size: 0.9rem;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 16px rgba(17,136,231,0.25);
+    }
+    .btn-primary:hover { background: var(--blue-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(17,136,231,0.35); }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: transparent; color: var(--ink-soft);
+      padding: 0.7rem 1.6rem; border-radius: 100px;
+      font-weight: 500; font-size: 0.9rem;
+      text-decoration: none;
+      border: 1.5px solid var(--border);
+      transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    }
+    .btn-outline:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+    .hero-socials {
+      display: flex; gap: 1rem; list-style: none;
+      animation: fadeUp 0.6s 0.5s ease both;
+    }
+    .hero-socials a {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted); font-size: 1rem; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .hero-socials a:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+
+    /* Hero image */
+    .hero-visual {
+      position: relative;
+      animation: fadeUp 0.7s 0.2s ease both;
+    }
+    .hero-img-wrap {
+      position: relative;
+      border-radius: 2rem 2rem 2rem 3rem;
+      overflow: hidden;
+      box-shadow: 0 24px 64px rgba(17,136,231,0.14);
+      background: var(--blue-light);
+    }
+    .hero-img-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(145deg, rgba(17,136,231,0.08) 0%, transparent 60%);
+      z-index: 1;
+    }
+    .hero-img-wrap img { width: 100%; display: block; }
+    .hero-deco {
+      position: absolute;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--blue-light);
+      z-index: -1;
+    }
+    .hero-deco-1 { top: -20px; left: -20px; width: 120px; height: 120px; opacity: 0.6; }
+    .hero-deco-2 { bottom: -15px; right: -15px; width: 90px; height: 90px; opacity: 0.5; }
+    .hero-stat-pill {
+      position: absolute;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 0.5rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      font-size: 0.82rem; font-weight: 500;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+      white-space: nowrap;
+      animation: floatPill 3s ease-in-out infinite;
+    }
+    .hero-stat-pill.p1 { top: 1.5rem; right: -1.5rem; animation-delay: 0s; }
+    .hero-stat-pill.p2 { bottom: 3rem; left: -2rem; animation-delay: 1.2s; }
+    .pill-icon { font-size: 1rem; }
+    @keyframes floatPill {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+    }
+
+    /* ── SECTION BASE ── */
+    section { padding: 5rem 1.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 600; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--blue);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      
+      font-weight: 700; font-size: clamp(1.6rem, 3vw, 2.2rem);
+      color: var(--ink); margin-bottom: 1rem;
+    }
+    .section-desc { color: var(--muted); font-size: 0.97rem; line-height: 1.75; max-width: 560px; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── ABOUT ── */
+    .about-bg { background: var(--surface); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 4rem; align-items: center;
+    }
+    .about-side-label {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 800; color: var(--ink);
+      line-height: 1.05; margin-bottom: 1.5rem;
+    }
+    .about-side-label span { color: var(--blue); }
+    .about-text p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; font-size: 0.97rem; }
+
+    /* Skills row */
+    .skills-strip {
+      margin-top: 2.5rem;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 1rem;
+      border: 1px solid var(--border);
+    }
+    .skills-strip p { font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .skills-icons {
+      display: flex; flex-wrap: wrap; gap: 1.2rem; align-items: center;
+    }
+    .skill-chip {
+      display: flex; align-items: center; gap: 0.5rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.4rem 0.9rem;
+      font-size: 0.82rem; font-weight: 500; color: var(--ink-soft);
+      transition: all 0.2s;
+    }
+    .skill-chip:hover { border-color: var(--blue); color: var(--blue); transform: translateY(-2px); }
+    .skill-chip img { width: 22px; }
+
+    /* About right — floating bubbles */
+    .about-right {
+      display: flex; align-items: center; justify-content: center;
+      height: 400px;
+      position: relative;
+    }
+    .bubbles-wrap {
+      position: relative;
+      width: 100%; height: 100%;
+    }
+    .bubble-anchor {
+      position: absolute;
+      transform: translate(-50%, -50%);
+    }
+    .bubble {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.35rem;
+      border-radius: 50%;
+      background: #fff;
+      border: 1.5px solid var(--border);
+      box-shadow: 0 4px 20px rgba(17,136,231,0.08);
+      cursor: default;
+      transition: box-shadow 0.3s ease, border-color 0.3s;
+      animation: floatBubble var(--dur, 4s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+    .bubble:hover {
+      box-shadow: 0 10px 36px rgba(17,136,231,0.2);
+      border-color: var(--blue);
+    }
+    .bubble img { object-fit: contain; display: block; pointer-events: none; }
+    .bubble .b-label {
+      font-weight: 600; color: var(--ink-soft);
+      text-align: center; line-height: 1.2;
+    }
+    .bubble.lg { width: 110px; height: 110px; }
+    .bubble.lg img { width: 44px; height: 44px; }
+    .bubble.lg .b-label { font-size: 0.72rem; }
+    .bubble.md { width: 90px; height: 90px; }
+    .bubble.md img { width: 36px; height: 36px; }
+    .bubble.md .b-label { font-size: 0.66rem; }
+    .bubble.sm { width: 74px; height: 74px; }
+    .bubble.sm img { width: 28px; height: 28px; }
+    .bubble.sm .b-label { font-size: 0.6rem; }
+
+    @keyframes floatBubble {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(var(--float-y, -10px)); }
+    }
+
+    /* ── PROJECTS ── */
+    .projects-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 2.5rem; flex-wrap: wrap; gap: 1rem; }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
+    .project-card {
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 1.25rem; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+    }
+    .project-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(17,136,231,0.12); }
+    .project-img-wrap { overflow: hidden; height: 200px; position: relative; background: var(--blue-light); }
+    .project-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
+    .project-card:hover .project-img-wrap img { transform: scale(1.06); }
+    .project-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,17,23,0.5) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 1rem;
+    }
+    .project-card:hover .project-img-overlay { opacity: 1; }
+    .project-overlay-link {
+      color: #fff; font-size: 0.82rem; font-weight: 500;
+      text-decoration: none;
+      background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.35);
+      padding: 0.4rem 0.9rem; border-radius: 100px;
+      backdrop-filter: blur(6px);
+      display: flex; align-items: center; gap: 0.4rem;
+    }
+    .project-body { padding: 1.25rem 1.4rem; }
+    .project-tag {
+      display: inline-block;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--blue); background: var(--blue-light);
+      padding: 0.2rem 0.6rem; border-radius: 100px; margin-bottom: 0.6rem;
+    }
+    .project-title {  font-weight: 700; font-size: 1.05rem; color: var(--ink); margin-bottom: 0.4rem; }
+    .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.65; margin-bottom: 1rem; }
+    .project-link {
+      display: inline-flex; align-items: center; gap: 0.35rem;
+      font-size: 0.82rem; font-weight: 500; color: var(--blue);
+      text-decoration: none; transition: gap 0.2s;
+    }
+    .project-link:hover { gap: 0.6rem; }
+
+    /* ── CERTIFICATES ── */
+    .certs-bg { background: var(--surface); }
+    .certs-marquee-wrap {
+      overflow: hidden;
+      display: flex; flex-direction: column; gap: 1.2rem;
+      mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+      -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+    }
+    .certs-track {
+      display: flex; gap: 1.2rem;
+      width: max-content;
+    }
+    .certs-track.row1 { animation: scrollLeft 28s linear infinite; }
+    .certs-track.row2 { animation: scrollRight 32s linear infinite; }
+    .certs-track:hover { animation-play-state: paused; }
+    @keyframes scrollLeft {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes scrollRight {
+      0%   { transform: translateX(-50%); }
+      100% { transform: translateX(0); }
+    }
+    .cert-card {
+      flex-shrink: 0;
+      width: 280px;
+      background: #fff; border: 1px solid var(--border);
+      border-radius: 1rem; overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+    .cert-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 12px 32px rgba(17,136,231,0.14);
+      border-color: var(--blue);
+    }
+    .cert-card img { width: 100%; display: block; }
+
+    /* ── CONTACT ── */
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1.2fr;
+      gap: 4rem; align-items: start;
+    }
+    .contact-info-box {
+      display: flex; flex-direction: column; gap: 1.2rem; margin-top: 2rem;
+    }
+    .contact-info-item {
+      display: flex; align-items: center; gap: 1rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 0.75rem; padding: 1rem 1.2rem;
+    }
+    .contact-info-icon {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--blue-light); color: var(--blue);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; flex-shrink: 0;
+    }
+    .contact-info-label { font-size: 0.75rem; color: var(--muted); margin-bottom: 0.1rem; }
+    .contact-info-val { font-size: 0.9rem; font-weight: 500; color: var(--ink-soft); }
+
+    /* Contact form */
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-label { font-size: 0.82rem; font-weight: 500; color: var(--ink-soft); }
+    .form-input, .form-textarea {
+      width: 100%; padding: 0.75rem 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 0.75rem;
+      font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      color: var(--ink);
+      background: #fff;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--blue); }
+    .form-textarea { resize: vertical; min-height: 130px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      color: rgba(255,255,255,0.7);
+    }
+    .footer-inner {
+      max-width: 1100px; margin: 0 auto;
+      padding: 3rem 1.5rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 2rem;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 0.6rem; }
+    .footer-brand img { width: 40px; opacity: 0.9; }
+    .footer-brand span {  font-weight: 800; letter-spacing: 0.18em; color: #fff; font-size: 1rem; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; flex-wrap: wrap; }
+    .footer-links a { font-size: 0.85rem; color: rgba(255,255,255,0.5); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: #fff; }
+    .footer-socials { display: flex; gap: 0.8rem; }
+    .footer-socials a {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.15);
+      display: flex; align-items: center; justify-content: center;
+      color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;
+      transition: all 0.2s;
+    }
+    .footer-socials a:hover { border-color: var(--blue); color: var(--blue); }
+    .footer-copy {
+      max-width: 1100px; margin: 0 auto;
+      padding: 1.2rem 1.5rem;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      font-size: 0.78rem; color: rgba(255,255,255,0.3);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem;
+    }
+
+    /* ── MOBILE NAV ── */
+    .mobile-nav {
+      display: none;
+      flex-direction: column; gap: 0;
+      background: #fff;
+      border-top: 1px solid var(--border);
+      padding: 0.5rem 0;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      padding: 0.8rem 1.5rem;
+      font-size: 0.9rem; font-weight: 500; color: var(--muted);
+      text-decoration: none; border-bottom: 1px solid var(--border);
+      transition: color 0.2s;
+    }
+    .mobile-nav a:hover { color: var(--blue); }
+
+    /* ── PROJECTS CAROUSEL ── */
+  .carousel-wrap {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    border-radius: 1.5rem;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    background: var(--card-bg);
+    min-height: 340px;
+  }
+ 
+  /* Left image */
+  .carousel-img-side {
+    position: relative;
+    overflow: hidden;
+    background: var(--blue-light);
+    border-right: 1px solid var(--border);
+  }
+  .carousel-img-inner {
+    position: absolute;
+    inset: 0;
+  }
+  .carousel-img-inner img {
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .carousel-img-fallback {
+    position: absolute; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .carousel-img-fallback i {
+    font-size: 3.5rem; color: var(--blue); opacity: 0.18;
+  }
+  .carousel-img-inner img.img-hidden { display: none; }
+ 
+  /* Right info */
+  .carousel-info-side {
+    padding: 2.5rem 2rem;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+ 
+  .carousel-slide-content {
+    display: flex; flex-direction: column; gap: 0.85rem;
+    flex: 1;
+  }
+ 
+  .carousel-tag {
+    display: inline-block;
+    font-size: 0.7rem; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--blue); background: var(--blue-light);
+    padding: 0.25rem 0.75rem; border-radius: 100px;
+    width: fit-content;
+  }
+  .carousel-proj-title {
+    font-weight: 700; font-size: 1.4rem;
+    color: var(--ink); line-height: 1.25; margin: 0;
+  }
+  .carousel-proj-desc {
+    font-size: 0.9rem; color: var(--muted);
+    line-height: 1.7; margin: 0;
+  }
+  .carousel-proj-link {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    font-size: 0.88rem; font-weight: 500; color: var(--blue);
+    text-decoration: none; margin-top: 0.25rem; width: fit-content;
+    transition: gap 0.2s;
+  }
+  .carousel-proj-link:hover { gap: 0.7rem; }
+ 
+  /* Nav bar */
+  .carousel-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+  }
+  .carousel-dots { display: flex; gap: 6px; align-items: center; }
+  .carousel-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--border);
+    cursor: pointer; border: none; padding: 0;
+    transition: background 0.25s, width 0.25s, border-radius 0.25s;
+  }
+  .carousel-dot.active {
+    background: var(--blue); width: 22px; border-radius: 4px;
+  }
+  .carousel-arrows { display: flex; gap: 0.5rem; }
+  .carousel-arrow {
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: transparent;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer; font-size: 0.78rem; color: var(--muted);
+    transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+  }
+  .carousel-arrow:hover {
+    background: var(--blue); color: #fff;
+    border-color: var(--blue); transform: scale(1.08);
+  }
+ 
+  /* Animations */
+  @keyframes carouselInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes carouselInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes carouselImgInUp {
+    from { opacity: 0; transform: scale(1.05) translateY(14px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+  @keyframes carouselImgInDown {
+    from { opacity: 0; transform: scale(1.05) translateY(-14px); }
+    to   { opacity: 1; transform: scale(1) translateY(0); }
+  }
+ 
+  .carousel-anim-up .carousel-slide-content {
+    animation: carouselInUp 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .carousel-anim-down .carousel-slide-content {
+    animation: carouselInDown 0.44s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .carousel-anim-up .carousel-img-inner {
+    animation: carouselImgInUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .carousel-anim-down .carousel-img-inner {
+    animation: carouselImgInDown 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+ 
+  /* Responsive */
+  @media (max-width: 860px) {
+    .carousel-wrap {
+      grid-template-columns: 1fr;
+      min-height: unset;
+    }
+    .carousel-img-side {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+      min-height: 220px;
+      position: relative;
+    }
+    .carousel-img-inner {
+      position: relative;
+      height: 220px;
+    }
+    .carousel-info-side {
+      padding: 1.5rem;
+    }
+  }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 860px) {
+      .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem 2rem; }
+      .hero-visual { order: -1; max-width: 320px; margin: 0 auto; }
+      .hero-text { text-align: center; }
+      .hero-actions { justify-content: center; }
+      .hero-socials { justify-content: center; }
+      .hero-desc { margin-left: auto; margin-right: auto; }
+      .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .nav-links { display: none; }
+      .hamburger { display: block; }
+      .hero-stat-pill.p1 { right: 0; top: 0.5rem; }
+      .hero-stat-pill.p2 { left: 0.5rem; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      .about-stats { grid-template-columns: 1fr 1fr; }
+      .footer-inner { flex-direction: column; align-items: flex-start; }
+      .footer-copy { flex-direction: column; }
     }
   </style>
 </head>
 <body>
-  <!-- Loading Screen -->
-  <div id="loading-screen">
-    <div class="loader"></div>
-  </div>
-  
-  <!-- navbar -->
-  <nav class="navbar navbar-expand-lg d-flex justify-content-between align-items-center sticky-top">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a class="navbar-brand d-flex align-items-center" href="#">
-        <img src="assets/img/logo.png" width="70"
-         alt="Logo" 
-         class="d-inline-block align-text-top" /> 
-         <span class="">A L I N D A</span>
+
+  <div id="loading-screen"><div class="loader-ring"></div></div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <aside></aside>
+
+  <!-- HEADER -->
+  <header>
+    <nav>
+      <a class="nav-logo" href="#">
+        <img src="assets/img/logo.png" alt="Logo" onerror="this.style.display='none'">
+        <span>A L I N D A</span>
       </a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarUnderlineExample" aria-controls="navbarExample" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#project">Projects</a></li>
+        <li><a href="#certificate">Certificates</a></li>
+        <li><a href="https://www.dicoding.com/users/alinda_euis_soleha/academies" target="_blank">Dicoding</a></li>
+      </ul>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation">
+        <i class="fa-solid fa-bars"></i>
       </button>
-
-      <div class="collapse navbar-collapse justify-content-end" id="navbarUnderlineExample">
-        <ul class="navbar-nav navbar-nav-underline">
-          <li class="nav-item">
-            <a class="nav-link" href="#home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#about">About</a>
-          </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Projects</a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li> -->
-          <li class="nav-item">
-            <a class="nav-link" href="#project">Projects</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#certificate">Certificate</a>
-          </li>
-        </ul>
-      </div>
+    </nav>
+    <div class="mobile-nav" id="mobileNav">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#project">Projects</a>
+      <a href="#certificate">Certificates</a>
+      <a href="https://www.dicoding.com/users/alinda_euis_soleha/academies" target="_blank">Dicoding ↗</a>
     </div>
-  </nav>
+  </header>
 
-  <!-- jumbotron -->
-   <div class="jumbotron mb-20 mt-10" id="home">
-   <div class="container d-flex flex-row justify-content-around align-items-center flex-wrap max-w-5xl mx-auto sm:text-start" style="overflow:hidden;">
-    <div class="right-content">
-      <img src="assets/img/profile.png" class="img-fluid" style="max-width: 400px;">
-    </div>
-    <div class="left-content d-flex flex-column flex-wrap">
-      <h5>Hi, I am</h5>
-      <h1 style="color:#1188E7;">Alinda Euis Soleha</h1>
-      <h3 class="role-1">Student And, </h3>
-      <h3 class="role-2" style="font-size: 2rem; font-weight: 700;">Junior Mobile Developer</h3>
-      <p>Hello, I am a student with an interest in Web and Mobile development.</p>
-      <div class="button">
-        <a href="https://wa.me/qr/OFFFFRQ3CI6YL1"><button  class="btn btn-primary">Contact Me</button></a>
-        <a href="assets/pdf/cv.pdf" download><button  class="btn btn-warning text-white" id="downloadCvBtn">Download CV</button></a>  
-      </div>
-      <div class="social-media">
-        <ul class="d-flex justify-content-start gap-3" style="font-size:2rem; list-style: none;">
-          <li><a href="https://www.instagram.com/alindaacy_/?hl=id"><i class="fa-brands fa-instagram"></i></a></li>
-          <li><a href="www.linkedin.com/in/alindaeuis"><i class="fa-brands fa-linkedin"></a></i></li>
-          <li><a href="https://x.com/xalindwch"><i class="fa-brands fa-twitter"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  
+  <main>
 
-   
-  </div>
-</div>
+    <!-- HERO -->
+    <section id="home" style="padding:0;">
+      <div class="hero">
+        <div class="hero-text">
+          <div class="hero-badge">
+            <span class="hero-badge-dot"></span>
+            Open to opportunities
+          </div>
+          <h1 class="hero-name">Alinda<br><span>Euis Soleha</span></h1>
+          <p class="hero-role">Fresh Graduate · Junior Fullstack Developer</p>
+          <p class="hero-desc">Passionate about Web and Mobile development. Experienced in Flutter apps, Laravel web systems, and n8n automation — ready to build impactful digital solutions.</p>
+          <div class="hero-actions">
+            <a href="https://wa.me/qr/OFFFFRQ3CI6YL1" class="btn-primary"><i class="fa-solid fa-paper-plane"></i> Contact Me</a>
+            <a href="assets/pdf/cv.pdf" download class="btn-outline"><i class="fa-solid fa-download"></i> Download CV</a>
+          </div>
+          <ul class="hero-socials">
+            <li><a href="https://www.instagram.com/alindaacy_/?hl=id" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+            <li><a href="http://www.linkedin.com/in/alindaeuis" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a></li>
+            <li><a href="https://x.com/xalindwch" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a></li>
+          </ul>
+        </div>
 
-<!-- about  -->
- <div class="about mt-5" id="about">
-   <div class="container text-center max-w-5xl">
-     <!-- <div class="img-section">
-       <img src="assets/img/profile.png" width="500" alt="">
-      </div> -->
-    <div class="about-section mb-5 " style="margin-bottom: 8rem;">
-    <h1 class="">About Me</h1>
-    <p class="">Hello, I am Alinda Euis Soleha. I am currently a student at SMK Wikrama Bogor. Majoring in Software and Game Development</p>
-    <p>I am a disciplined, hardworking, and responsible student. In addition, I also have good teamwork skills. I have a high passion for learning in the field of web and mobile development. Currently, I have learned several programming languages that I have implemented in several website projects. Below are the programming languages that I have learned:</p>
-  </div>
-  <div class="skill mt-4 mb-20">
-    <ul class="d-flex justify-content-center flex-wrap align-items-center gap-5" style="list-style: none;">
-      <li><img src="assets/img/html.png" alt="html" width="80"></li>
-      <li><img src="assets/img/css.png" alt="css" width="100"></li>
-      <li><img src="assets/img/bootstrap.png" alt="bootstrap" width="80"></li>
-      <li><img src="assets/img/tailwind.png" alt="tailwind" width="80"></li>
-      <li><img src="assets/img/flutter.png" alt="tailwind" width="80"></li>
-      <li><img src="assets/img/figma.png" alt="tailwind" width="80"></li>
-  </div>
-</div>
- </div>
-
- <div class="project max-w-5xl mx-auto mt-20" id="project">
-  <div class="header-project text-center">
-    <h1>My Projects</h1>
-    <p>a collection of projects that I have made</p>
-  </div>
-
-  <div class="container mb-20">
-    <div class="row g-4 mx-auto">
-      <!-- Card 1 -->
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/todoapp.png" class="card-img-top" alt="Mid-semester exam project">
-          <div class="card-body">
-            <h4>To-Do App Design</h4>
-            <p class="card-text">
-              Create a simple to-do app design using a prototype in figma
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="https://www.figma.com/design/UWRsrRi0fBqBCE7B17qXQG/UI-aplikasi-gelang?node-id=93-36&t=yyr3FTc1DWMdeEH1-1" class="d-flex gap-1">View Design<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
-            </div>
+        <div class="hero-visual">
+          <div class="hero-deco hero-deco-1"></div>
+          <div class="hero-img-wrap">
+            <img src="assets/img/profile.png" alt="Alinda Euis Soleha">
+          </div>
+          <div class="hero-deco hero-deco-2"></div>
+          <div class="hero-stat-pill p1">
+            <span class="pill-icon">💻</span>
+            <span>Fullstack Dev</span>
+          </div>
+          <div class="hero-stat-pill p2">
+            <span class="pill-icon">🎨</span>
+            <span>UI/UX Designer</span>
           </div>
         </div>
       </div>
-      <!-- Card 1 -->
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/om.png" class="card-img-top" alt="Mid-semester exam project">
-          <div class="card-body">
-            <h4>Landing Page Web Design</h4>
-            <p class="card-text">
-              create a simple landing page with a prototype in figma
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="https://www.figma.com/design/bhe2jbKrfVb0neEDhWTX8M/OSIS-MPR-WEB-DESIGN?node-id=0-1&t=gbmkaxOrGzJKhmHh-1" class="d-flex gap-1">View Design<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/ticketing_app.png" class="card-img-top" alt="Mid-semester exam project">
-          <div class="card-body">
-            <h4>Ticketing APP</h4>
-            <p class="card-text">
-              Creating application display slicing for simple ticket purchases using Flutter with dynamic data
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="https://drive.google.com/drive/folders/1Ufeytovans1E6t52OT7Ecne6b8EhYadB?usp=sharing" class="d-flex gap-1">View Project<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/sewa_lapangan.png" class="card-img-top" alt="Mid-semester exam project">
-          <div class="card-body">
-            <h4>Court Booking APP</h4>
-            <p class="card-text">
-              Creating application display slicing by implementing Figma designs for simple field rentals using Flutter with dynamic data
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="https://drive.google.com/drive/folders/1U928A2wdLiK-kuR5xYhlDh-xTAdUmBrr?usp=sharing" class="d-flex gap-1">View Project<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Card 1 -->
-      <!-- <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/ats.png" class="card-img-top" alt="Mid-semester exam project">
-          <div class="card-body">
-            <h4>Mid-semester exam project</h4>
-            <p class="card-text">
-              Create a program to check competent-incompetent scores.
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/projectAts/index.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
-            </div>
-          </div>
-        </div>
-      </div> -->
+    </section>
 
-      <!-- Card 2 -->
-      <!-- <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/dasis.png" class="card-img-top" alt="Student Data">
-          <div class="card-body">
-            <h4>Student Data</h4>
-            <p class="card-text">
-              Create a student data program that can add, delete data, and print data entered by the user.
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/dataSiswa/latihan1.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
-      <!-- Card 3 -->
-      <!-- <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/kasir.png" class="card-img-top" alt="Simple Cashier">
-          <div class="card-body">
-            <h4>Simple Cashier</h4>
-            <p class="card-text">
-              Create a simple cashier program using PHP that can add, delete, and print.
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/kasir1/index.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/rentalMotor.png" class="card-img-top" alt="Motorcycle Rental Program" />
-        <div class="card-body">
-          <h4>Motorcycle Rental Program</h4>
-          <p class="card-text">
-            create a website for motorbike rental using OOP PHP.
-          </p>
+    <!-- ABOUT -->
+    <section id="about" class="about-bg">
+      <div class="section-inner">
+        <div class="about-grid reveal">
           <div>
-            <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/rental/index.php" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+            <p class="section-label">Who I Am</p>
+            <h2 class="about-side-label">About <span>Me.</span></h2>
+            <div class="about-text">
+              <p>Hello, I am Alinda Euis Soleha. I am currently a student at SMK Wikrama Bogor, majoring in Software and Game Development.</p>
+              <p>I am a highly dedicated, communicative individual accustomed to working collaboratively within a team. With practical industry experience, I have developed Flutter-based mobile applications at a company in Tangerang and built various web systems using Laravel.</p>
+              <p>I'm also actively designing efficient automation systems with n8n, and always eager to explore web development, app development, and workflow automation to deliver impactful digital solutions.</p>
+            </div>
+          </div>
+
+          <div class="about-right">
+            <div class="bubbles-wrap">
+              <div class="bubble-anchor" style="top:25%; left:15%;">
+                <div class="bubble lg" style="--dur:4.2s; --delay:0s; --float-y:-13px;">
+                  <img src="assets/img/html.png" alt="HTML">
+                  <span class="b-label">HTML</span>
+                </div>
+              </div>
+              <div class="bubble-anchor" style="top:18%; left:48%;">
+                <div class="bubble lg" style="--dur:3.8s; --delay:0.4s; --float-y:-14px;">
+                  <img src="assets/img/flutter.png" alt="Flutter">
+                  <span class="b-label">Flutter</span>
+                </div>
+              </div>
+              <div class="bubble-anchor" style="top:22%; left:82%;">
+                <div class="bubble md" style="--dur:5s; --delay:0.7s; --float-y:-10px;">
+                  <img src="assets/img/css.png" alt="CSS">
+                  <span class="b-label">CSS</span>
+                </div>
+              </div>
+              <div class="bubble-anchor" style="top:55%; left:32%;">
+                <div class="bubble md" style="--dur:4.6s; --delay:0.2s; --float-y:-11px;">
+                  <img src="assets/img/tailwind.png" alt="Tailwind">
+                  <span class="b-label">Tailwind</span>
+                </div>
+              </div>
+              <div class="bubble-anchor" style="top:52%; left:68%;">
+                <div class="bubble lg" style="--dur:4s; --delay:1s; --float-y:-12px;">
+                  <img src="assets/img/figma.png" alt="Figma">
+                  <span class="b-label">Figma</span>
+                </div>
+              </div>
+              <div class="bubble-anchor" style="top:82%; left:18%;">
+                <div class="bubble sm" style="--dur:3.6s; --delay:0.6s; --float-y:-8px;">
+                  <img src="assets/img/bootstrap.png" alt="Bootstrap">
+                  <span class="b-label">Bootstrap</span>
+                </div>
+              </div>
+              <div class="bubble-anchor" style="top:82%; left:50%;">
+                <div class="bubble sm" style="--dur:4.8s; --delay:1.3s; --float-y:-7px;">
+                  <img src="assets/img/n8n.png" alt="n8n">
+                  <span class="b-label">n8n</span>
+                </div>
+              </div>
+              <div class="bubble-anchor" style="top:80%; left:82%;">
+                <div class="bubble sm" style="--dur:4.3s; --delay:0.3s; --float-y:-9px;">
+                  <img src="assets/img/html.png" alt="MySQL">
+                  <span class="b-label">MySQL</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div> -->
-    
-      <!-- <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/shell.png" class="card-img-top" alt="Shell" />
-          <div class="card-body">
-            <h4>Shell</h4>
-            <p class="card-text">
-              create a website to refuel using OOP PHP.
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="http://alindaeuis.infinityfreeapp.com/bahanBakar/index.php?i=1" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="project">
+  <div class="section-inner">
+    <div class="projects-header reveal">
+      <div>
+        <p class="section-label">My Work</p>
+        <h2 class="section-title">Projects</h2>
+        <p class="section-desc">A collection of projects I've crafted — from UI designs to full apps.</p>
+      </div>
+    </div>
+ 
+    <div class="carousel-wrap reveal">
+ 
+      <!-- Left: image -->
+      <div class="carousel-img-side" id="carouselImgSide">
+        <div class="carousel-img-inner" id="carouselImgInner">
+          <img src="" alt="" id="carouselImg">
+          <div class="carousel-img-fallback" id="carouselFallback">
+            <i class="fa-solid fa-layer-group"></i>
+          </div>
+        </div>
+      </div>
+ 
+      <!-- Right: info -->
+      <div class="carousel-info-side">
+        <div class="carousel-slide-content" id="carouselContent">
+          <!-- filled by JS -->
+        </div>
+ 
+        <!-- Navigation -->
+        <div class="carousel-nav">
+          <div class="carousel-dots" id="carouselDots"></div>
+          <div class="carousel-arrows">
+            <button class="carousel-arrow" id="carouselPrev" aria-label="Previous project">
+              <i class="fa-solid fa-chevron-up"></i>
+            </button>
+            <button class="carousel-arrow" id="carouselNext" aria-label="Next project">
+              <i class="fa-solid fa-chevron-down"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificate" class="certs-bg">
+      <div class="section-inner">
+        <div class="reveal" style="text-align:center; max-width:560px; margin:0 auto 2.5rem;">
+          <p class="section-label">Credentials</p>
+          <h2 class="section-title">My Certificates</h2>
+          <p class="section-desc">Certificates earned from Dicoding.com bootcamps and Unity Essentials programs.</p>
+        </div>
+        <div class="certs-marquee-wrap reveal">
+          <!-- Row 1: scrolls left -->
+          <div class="certs-track row1">
+            <article class="cert-card"><img src="assets/img/certificate1.png" alt="Certificate 1"></article>
+            <article class="cert-card"><img src="assets/img/certificate2.png" alt="Certificate 2"></article>
+            <article class="cert-card"><img src="assets/img/certificate3.png" alt="Certificate 3"></article>
+            <article class="cert-card"><img src="assets/img/certificate4.png" alt="Certificate 4"></article>
+            <!-- duplicate for seamless loop -->
+            <article class="cert-card"><img src="assets/img/certificate1.png" alt="Certificate 1"></article>
+            <article class="cert-card"><img src="assets/img/certificate2.png" alt="Certificate 2"></article>
+            <article class="cert-card"><img src="assets/img/certificate3.png" alt="Certificate 3"></article>
+            <article class="cert-card"><img src="assets/img/certificate4.png" alt="Certificate 4"></article>
+          </div>
+          <!-- Row 2: scrolls right -->
+          <div class="certs-track row2">
+            <article class="cert-card"><img src="assets/img/certificate_5.png" alt="Certificate 5"></article>
+            <article class="cert-card"><img src="assets/img/certificate_6.png" alt="Certificate 6"></article>
+            <article class="cert-card"><img src="assets/img/certificate_7.png" alt="Certificate 7"></article>
+            <article class="cert-card"><img src="assets/img/certificate_8.png" alt="Certificate 8"></article>
+            <!-- duplicate for seamless loop -->
+            <article class="cert-card"><img src="assets/img/certificate_5.png" alt="Certificate 5"></article>
+            <article class="cert-card"><img src="assets/img/certificate_6.png" alt="Certificate 6"></article>
+            <article class="cert-card"><img src="assets/img/certificate_7.png" alt="Certificate 7"></article>
+            <article class="cert-card"><img src="assets/img/certificate_8.png" alt="Certificate 8"></article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="section-inner">
+        <div class="contact-grid reveal">
+          <div>
+            <p class="section-label">Get In Touch</p>
+            <h2 class="section-title">Let's Work<br>Together!</h2>
+            <p class="section-desc">Interested in a landing page or web system? Drop a message and let's build something great.</p>
+            <div class="contact-info-box">
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><i class="fa-brands fa-whatsapp"></i></div>
+                <div>
+                  <div class="contact-info-label">WhatsApp</div>
+                  <div class="contact-info-val"><a href="https://wa.me/qr/OFFFFRQ3CI6YL1" target="_blank" rel="noopener noreferrer" style="color: black;">s.id/wme1C</a></div>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><i class="fa-brands fa-linkedin"></i></div>
+                <div>
+                  <div class="contact-info-label">LinkedIn</div>
+                  <div class="contact-info-val"><a href="http://www.linkedin.com/in/alindaeuis" target="_blank" rel="noopener noreferrer" style="color: black;">linkedin.com/in/alindaeuis</a></div>
+                </div>
+              </div>
+              <div class="contact-info-item">
+                <div class="contact-info-icon"><i class="fa-brands fa-instagram"></i></div>
+                <div>
+                  <div class="contact-info-label">Instagram</div>
+                  <div class="contact-info-val"><a href="https://www.instagram.com/alindaacy_/?hl=id" target="_blank" rel="noopener noreferrer" style="color: black;">@alindaacy_</a></div>
+                </div>
+              </div>
             </div>
-      </div>
-    </div>
-  </div> -->
+          </div>
 
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/landingPage.png" class="card-img-top" alt="Shell" />
-          <div class="card-body">
-            <h4>Landing Page</h4>
-            <p class="card-text">
-              create a simple bookstore landing page using HTML & CSS
-            </p>
-            <div>
-              <button class="btn btn-link" type="button"><a href="https://landing-page-mocha-three-35.vercel.app/" class="d-flex gap-1">View Website<i class="fa-solid fa-arrow-up-right-from-square"></i></a></button>
+          <form class="contact-form" method="POST" action="https://api.web3forms.com/submit">
+            <input type="hidden" name="access_key" value="f359bce3-7245-43bc-b53c-e2d864b706c8">
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="name">Name</label>
+                <input type="text" class="form-input" name="name" id="name" placeholder="Your name">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" class="form-input" name="email" id="email" placeholder="your@email.com">
+              </div>
             </div>
-      </div>
-    </div>
-  </div>
-
-
-</div>
- </div>
- </div>
-
- <div class="certificate max-w-5xl mx-auto mt-20" id="certificate">
-  <div class="header-certificate text-center mb-10 max-w-lg mx-auto">
-    <h1 class="mb-5">My Certificates</h1>
-    <p>Some of the certificates I've gotten from attending free bootcamp classes held by dicoding.com and unity essentials</p>
-  </div>
-
-  <div class="certificate-body">
-    <div class="container">
-    <div class="row g-4">
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate1.png" class="card-img-top" alt="Mid-semester exam project">
+            <div class="form-group">
+              <label class="form-label" for="message">Message</label>
+              <textarea class="form-textarea" name="message" id="message" placeholder="Tell me about your project..."></textarea>
+            </div>
+            <button type="submit" class="btn-primary" style="align-self:flex-end;">
+              Send Message <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </form>
         </div>
       </div>
-      
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate2.png" class="card-img-top" alt="Mid-semester exam project">
-        </div>
-      </div>
+    </section>
 
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate3.png" class="card-img-top" alt="Mid-semester exam project">
-        </div>
-      </div>
+  </main>
 
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate4.png" class="card-img-top" alt="Mid-semester exam project">
-        </div>
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <img src="assets/img/logo.png" alt="Logo" onerror="this.style.display='none'">
+        <span>A L I N D A</span>
       </div>
-
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate_5.png" class="card-img-top" alt="Mid-semester exam project">
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate_6.png" class="card-img-top" alt="Mid-semester exam project">
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate_7.png" class="card-img-top" alt="Mid-semester exam project">
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12">
-        <div class="card h-100">
-          <img src="assets/img/certificate_8.png" class="card-img-top" alt="Mid-semester exam project">
-        </div>
-      </div>
-
-    </div>
-    </div>
-  </div>
- </div>
-
- <div class="contact mt-20">
-  <div class="row max-w-5xl mx-auto mb-20">
-  <div class="contact-header mb-10 col-md-5">
-    <h1>Lets Work Together!</h1>
-    <p>If you are interested in creating a landing page website or a website system, you can send a message to me! via the form beside</p>
-  </div>
-
-  <div class="col-md-7">
-    <form class="max-w-full" method="POST" action="https://api.web3forms.com/submit">
-      <input type="hidden" name="access_key" value="f359bce3-7245-43bc-b53c-e2d864b706c8">
-      <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="name" class="form-control" name="name" id="name" aria-describedby="emailHelp" />
-      </div>
-      <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" name="email" id="email" />
-      </div>
-      <div class="mb-3">
-        <label for="message" class="form-label">Message</label>
-        <textarea class="form-control" name="message" aria-label="With textarea"></textarea>
-      </div>
-      <div class="text-end">
-        <button type="submit" class="btn btn-primary">Send Message</button>
-      </div>
-    </form>
-  </div>
-</div>
- </div>
-
- <footer>
-  <div class="mt-20 d-flex justify-content-between pt-5" style="background-color: #1188E7;">
-    <div class="d-flex align-items-center">
-      <img src="assets/img/logo.png" alt="logo" width="100">
-      <h6>A L I N D A</h6>
-    </div>
-    <div class="text-center d-flex flex-column align-items-center justify-content-center">
-      <ul class="list-navbar d-flex gap-5" style="list-style:none; color: #ffff;">
-        <li class="nav-item">
-          <a class="nav-link" href="#home">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#about">About</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#project">Projects</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#certificate">Certificate</a>
-        </li>
+      <ul class="footer-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#project">Projects</a></li>
+        <li><a href="#certificate">Certificates</a></li>
       </ul>
-      <ul class="media-social d-flex align-items-center gap-5" style="font-size:2rem; list-style: none;">
-        <li><a href="https://www.instagram.com/alindaacy_/?hl=id" style="color:#fff"><i class="fa-brands fa-instagram"></i></a></li>
-          <li><a href="www.linkedin.com/in/alindaeuis" style="color:#fff"><i class="fa-brands fa-linkedin"></a></i></li>
-          <li><a href="https://x.com/xalindwch" style="color:#fff"><i class="fa-brands fa-twitter"></i></a></li>
-      </ul>
+      <div class="footer-socials">
+        <a href="https://www.instagram.com/alindaacy_/?hl=id" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="http://www.linkedin.com/in/alindaeuis" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="https://x.com/xalindwch" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+      </div>
     </div>
-    <div class="d-flex align-items-center p-4">
-      <a href="#home"><button class="btn btn-primary">Back To Top</button></a>
+    <div class="footer-copy">
+      <span>© 2025 Alinda Euis Soleha. All rights reserved.</span>
+      <a href="#home" style="color:rgba(255,255,255,0.4); text-decoration:none; font-size:0.78rem;">Back to top ↑</a>
     </div>
-  </div>
- </footer>
+  </footer>
 
- <script src="script.js"></script>
+  <script>
+    // Loading
+    window.addEventListener('load', function () {
+      const ls = document.getElementById('loading-screen');
+      ls.classList.add('loaded');
+      setTimeout(() => ls.style.display = 'none', 900);
+    });
+    window.addEventListener('pageshow', function (e) {
+      if (e.persisted) document.getElementById('loading-screen').style.display = 'none';
+    });
 
- <!-- fast bootstrap -->
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    // Cursor glow
+    const glow = document.getElementById('cursorGlow');
+    document.addEventListener('mousemove', e => {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top  = e.clientY + 'px';
+    });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburgerBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    hamburger.addEventListener('click', () => {
+      mobileNav.classList.toggle('open');
+      hamburger.innerHTML = mobileNav.classList.contains('open')
+        ? '<i class="fa-solid fa-xmark"></i>'
+        : '<i class="fa-solid fa-bars"></i>';
+    });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileNav.classList.remove('open');
+      hamburger.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }));
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = (i * 0.08) + 's';
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Active nav link highlight
+    const sections = document.querySelectorAll('section[id], main > section');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => {
+        if (window.scrollY >= s.offsetTop - 120) current = s.id;
+      });
+      navLinks.forEach(a => {
+        a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : '';
+      });
+    });
+
+    (function () {
+    const projects = [
+      {
+        tag: 'Figma',
+        title: 'To-Do App Design',
+        desc: 'A simple to-do app UI/UX prototype created with Figma, featuring clean layouts and intuitive interactions.',
+        link: 'https://www.figma.com/design/UWRsrRi0fBqBCE7B17qXQG/UI-aplikasi-gelang?node-id=93-36&t=yyr3FTc1DWMdeEH1-1',
+        label: 'View Design',
+        img: 'assets/img/todoapp.png'
+      },
+      {
+        tag: 'Figma',
+        title: 'Landing Page Web Design',
+        desc: 'A clean and modern landing page prototype for an organization, designed in Figma with structured layouts.',
+        link: 'https://www.figma.com/design/bhe2jbKrfVb0neEDhWTX8M/OSIS-MPR-WEB-DESIGN?node-id=0-1&t=gbmkaxOrGzJKhmHh-1',
+        label: 'View Design',
+        img: 'assets/img/om.png'
+      },
+      {
+        tag: 'Flutter',
+        title: 'Ticketing App',
+        desc: 'Application UI for simple ticket purchases built with Flutter, featuring dynamic data and responsive layouts.',
+        link: 'https://drive.google.com/drive/folders/1Ufeytovans1E6t52OT7Ecne6b8EhYadB?usp=sharing',
+        label: 'View Project',
+        img: 'assets/img/ticketing_app.png'
+      },
+      {
+        tag: 'Flutter',
+        title: 'Court Booking App',
+        desc: 'Flutter app implementing Figma designs for field rentals, with dynamic data and a polished slicing approach.',
+        link: 'https://drive.google.com/drive/folders/1U928A2wdLiK-kuR5xYhlDh-xTAdUmBrr?usp=sharing',
+        label: 'View Project',
+        img: 'assets/img/sewa_lapangan.png'
+      },
+      {
+        tag: 'HTML & CSS',
+        title: 'Bookstore Landing Page',
+        desc: 'A simple, elegant bookstore landing page built with HTML & CSS, deployed live on Vercel.',
+        link: 'https://landing-page-mocha-three-35.vercel.app/',
+        label: 'View Website',
+        img: 'assets/img/landingPage.png'
+      }
+    ];
+ 
+    let cur = 0;
+    let autoTimer;
+    const INTERVAL = 4000;
+ 
+    const wrap      = document.querySelector('.carousel-wrap');
+    const imgInner  = document.getElementById('carouselImgInner');
+    const imgEl     = document.getElementById('carouselImg');
+    const fallback  = document.getElementById('carouselFallback');
+    const content   = document.getElementById('carouselContent');
+    const dotsEl    = document.getElementById('carouselDots');
+ 
+    function buildDots() {
+      dotsEl.innerHTML = '';
+      projects.forEach((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', 'Project ' + (i + 1));
+        d.addEventListener('click', () => go(i));
+        dotsEl.appendChild(d);
+      });
+    }
+ 
+    function render(idx, dir) {
+      const p = projects[idx];
+ 
+      // Image
+      imgEl.classList.add('img-hidden');
+      fallback.style.display = 'flex';
+      imgEl.onload = function () {
+        imgEl.classList.remove('img-hidden');
+        fallback.style.display = 'none';
+      };
+      imgEl.onerror = function () {
+        imgEl.classList.add('img-hidden');
+        fallback.style.display = 'flex';
+      };
+      imgEl.src = p.img;
+      imgEl.alt = p.title;
+ 
+      // Text
+      content.innerHTML = `
+        <span class="carousel-tag">${p.tag}</span>
+        <h3 class="carousel-proj-title">${p.title}</h3>
+        <p class="carousel-proj-desc">${p.desc}</p>
+        <a href="${p.link}" target="_blank" class="carousel-proj-link">
+          ${p.label} <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      `;
+ 
+      // Animate
+      const animClass = dir === 'up' ? 'carousel-anim-up' : 'carousel-anim-down';
+      wrap.classList.remove('carousel-anim-up', 'carousel-anim-down');
+      void wrap.offsetWidth; // reflow trigger
+      wrap.classList.add(animClass);
+ 
+      // Dots
+      dotsEl.querySelectorAll('.carousel-dot').forEach((d, i) => {
+        d.classList.toggle('active', i === idx);
+      });
+    }
+ 
+    function go(idx, dir) {
+      if (dir === undefined) dir = idx > cur ? 'up' : 'down';
+      cur = ((idx % projects.length) + projects.length) % projects.length;
+      render(cur, dir);
+      clearTimeout(autoTimer);
+      autoTimer = setTimeout(() => go(cur + 1, 'up'), INTERVAL);
+    }
+ 
+    document.getElementById('carouselNext').addEventListener('click', () => go(cur + 1, 'up'));
+    document.getElementById('carouselPrev').addEventListener('click', () => go(cur - 1, 'down'));
+ 
+    buildDots();
+    render(0, 'up');
+    autoTimer = setTimeout(() => go(1, 'up'), INTERVAL);
+  })();
+  </script>
 
 </body>
 </html>
